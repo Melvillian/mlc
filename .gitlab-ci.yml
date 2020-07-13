@@ -15,6 +15,20 @@ build_linux:
   script:
     - cargo build --verbose --release  
 
+build_windows:
+  stage: build
+  image: servercore:ltsc2019
+  tags:
+    - shared-build_windows
+    - windows
+     windows-1809
+  artifacts:
+    paths:
+      - target/release/mlc
+  script:
+    - echo hello
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
 test_latest:
     stage: build
     script:
