@@ -30,6 +30,12 @@ pub fn parse_args() -> Config {
                 .required(false),
         )
         .arg(
+            Arg::with_name("match-file-extension")
+                .long("match-file-extension")
+                .help("Do check for the exact file extension when searching for a file.")
+                .required(false),
+        )
+        .arg(
             Arg::with_name("ignore_path")
                 .long("ignore-path")
                 .help("List of files and directories which will not be checked")
@@ -53,6 +59,13 @@ pub fn parse_args() -> Config {
                 .required(false),
         )
         .arg(
+            Arg::with_name("throttle")
+                .long("throttle")
+                .help("Wait between http request for a defined number of milliseconds.")
+                .required(false)
+                .takes_value(true),
+        )
+        .arg(
             Arg::with_name("root_dir")
                 .long("root-dir")
                 .takes_value(true)
@@ -65,6 +78,14 @@ pub fn parse_args() -> Config {
         .about(crate_description!())
         .get_matches();
     let debug = matches.is_present("debug");
+
+    let throttle = match matches.value_of("throttle") {
+        Some(v) => v
+            .parse()
+            .expect("Integer expected. Throttle time in milliseconds."),
+        None => 0,
+    };
+
     let log_level = if debug {
         logger::LogLevel::Debug
     } else {
@@ -82,6 +103,8 @@ pub fn parse_args() -> Config {
     }
 
     let no_web_links = matches.is_present("no_web_links");
+
+    let match_file_extension = matches.is_present("match-file-extension");
 
     let ignore_links: Vec<WildMatch> = matches
         .values_of("ignore_links")
@@ -122,8 +145,10 @@ pub fn parse_args() -> Config {
         folder: directory,
         markup_types,
         no_web_links,
+        match_file_extension,
         ignore_links,
         ignore_path,
         root_dir,
+        throttle,
     }
 }

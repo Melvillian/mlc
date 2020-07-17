@@ -14,6 +14,15 @@ Types for Changes:
 
 ## [Unreleased] - ReleaseDate
 
+## [0.13.0] - 2020-07-17
+
+* Added `--throttle` command
+
+## [0.12.0] - 2020-07-15
+
+* Added `--match-file-extension` switch
+* Changed check links only once for speed improvement  
+
 ## [0.11.2] - 2020-07-13
 
 ### Changed
