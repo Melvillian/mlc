@@ -21,7 +21,7 @@ build_windows:
   tags:
     - shared-build_windows
     - windows
-     windows-1809
+    - windows-1809
   artifacts:
     paths:
       - target/release/mlc
