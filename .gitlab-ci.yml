@@ -19,7 +19,7 @@ build_windows:
   stage: build
   image: servercore:ltsc2019
   tags:
-    - shared-build_windows
+    - shared-windows
     - windows
     - windows-1809
   artifacts:
